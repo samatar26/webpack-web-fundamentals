@@ -38,4 +38,8 @@ Example of passing in an env in your build script:
 In addition to passing in a single value, you can also pass in a object by calling `--env.foo=1 --env.bar=2`
 
 
-The function syntax gives you all these additional features to a single command and you have a wealth of information that you receive from the command line that you can use to conditionally add or remove different features or configs or values that may be relevant to a specific environment you're building. 
+The function syntax gives you all these additional features to a single command and you have a wealth of information that you receive from the command line that you can use to conditionally add or remove different features or configs or values that may be relevant to a specific environment you're building.
+
+### Environments and Composition
+Common boilerplate webpack configuration such as entry and output can be modularized and put into a webpakc.common.js file if you'd like.
+
