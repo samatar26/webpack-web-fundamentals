@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "debug":"npm run build -- --env.debug=1",
+    "build:log":"npm run build -- --env=1",
     "watch": "npm run build -- --watch",
     "build": "webpack --verbose"
   },
