@@ -1,0 +1,26 @@
+{
+  "name": "webpack-web-fundamentals",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "debug":"npm run build -- --env.debug=1",
+    "watch": "npm run build -- --watch",
+    "build": "webpack --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samatar26/webpack-web-fundamentals.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Samatar26/webpack-web-fundamentals/issues"
+  },
+  "homepage": "https://github.com/Samatar26/webpack-web-fundamentals#readme",
+  "devDependencies": {
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
+  }
+}
