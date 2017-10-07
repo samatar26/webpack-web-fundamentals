@@ -127,3 +127,71 @@ Lets take a closer look at each of these properties.
 - sourceRoot – (optional) The URL which all of the files in the sources array will be resolved from.
 - names – An array containing all of the variable and function names from your source files.
 - mappings – A string of Base64 VLQs containing the actual code mappings. (This is where the magic happens.)
+
+### Piecing together with "addons"
+So we now using a paths variable understand how to take and compose environmental based configurations. We're now going to take it a step further and talk about ways we can add one-off features and have them compose on top of each other independently. These differ from a prod. vs dev. environment and rather allow you to experiment with adding different features for different scenarios. I've created a function called `addons`, it takes an argument which is a string or an array. Then we're going to go ahead and flatten it and remove any undefined values. It's going to return a map and it's an array, it's going to pull the webpack configuration that is listed under the addons folder. This will allow us to tag on an array or a single value of addon configs into our webpackMerge config.
+
+```js
+const commonConfig = require('./build-utils/webpack.common')
+const webpackMerge = require('webpack-merge')
+
+const addons = addonsArg => {
+  let addons = [].concat.apply([], [addonsArg]).filter(Boolean)
+  return addons.map(addomName =>
+    require(`./build-utils/addons/webpack.${addonName}.js`)
+  )
+}
+
+module.exports = env => {
+  console.log(env)
+
+  const envConfig = require(`./build-utils/webpack.${env.env}.js`)
+  const mergedConfig = webpackMerge(
+    commonConfig,
+    envConfig,
+    ...addons(env.addons)
+  )
+  console.log(mergedConfig)
+  return mergedConfig
+}
+
+```
+In our package.json we currently have this (this is just to showcase how we can use the composition features to our benefits. Normally  your one off configuration may only be to a specific environment or specific feature):
+`
+{
+  "name": "webpack-web-fundamentals",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:dev:bundlebuddy": "npm run build:dev -- --env.addons=bundlebuddy",
+    "build:dev:bundleanalyze": "npm run build:dev -- --env.addons=bundleanalyze",
+    "build:dev": "npm run build -- --env.env=dev",
+
+    "build:prod:bundlebuddy": "npm run build:prod -- --env.addons=bundlebuddy",
+    "build:prod:bundleanalyze": "npm run build:prod -- --env.addons=bundleanalyze",
+    "build:prod": "npm run build -- --env.env=prod",
+
+    "build:watch:dev": "npm run build:watch -- --env.env=dev",
+    "build:watch:prod": "npm run build:watch -- --env.env=prod",
+    "build:watch": "npm run build -- --watch",
+    "build": "webpack"
+  },
+`
+
+Using the `env.addons` property we've set the name of one of our addon configurations. So as you can see when we run ie `build:dev:bundlebuddy` in our webpack configuration the addons property will be passed in to env and the property value will be passed into our addons value and return the configuration. We can also pass in an array of different addons like so: `"npm run build:dev -- --env.addons=bundlebuddy --env.addons=bundleanalyze"`. Bundleanalyze is just using the webpack bundle analyzer and we're just using one plugin that we're leveraging. This is exactly the point of an addon configuration, they're `ad-hoc` and not only allow you to test and experiment with different configuration features without affecting your normal environment configs, but also allows you to compose on top of them!
+
+Let's say you're developing your first plugin. In webpack there's a shorthand syntax that says that you can pass in a function in as a plugin and it will evaluate as one:
+
+```js
+module.exports = {
+  plugin: [
+    function apply() {
+      const compiler = this
+
+      console.log(compiler)
+    },
+  ],
+}
+```
+All we're really doing is console logging the compiler, but it's still a plugin. The thing to take away from this is that this is a workbench and a place for your to experiment with different types of features without really having a lot of friction for your other configurations. So we can add a build script: `"build:prod:firstplugin: "npm run build:prod -- --env.addons=firstplugin`. And when you run the command you will see the compiler being console logged! We're essentiallyable to conditionally for any reason add these different types of plugins or composable features and this is not only good for deploy targets, but it's also good for testing and composing, trying things out and really getting your feet wet with how flexible you can make your configuration@
