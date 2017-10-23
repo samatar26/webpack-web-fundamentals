@@ -194,4 +194,17 @@ module.exports = {
   ],
 }
 ```
-All we're really doing is console logging the compiler, but it's still a plugin. The thing to take away from this is that this is a workbench and a place for your to experiment with different types of features without really having a lot of friction for your other configurations. So we can add a build script: `"build:prod:firstplugin: "npm run build:prod -- --env.addons=firstplugin`. And when you run the command you will see the compiler being console logged! We're essentiallyable to conditionally for any reason add these different types of plugins or composable features and this is not only good for deploy targets, but it's also good for testing and composing, trying things out and really getting your feet wet with how flexible you can make your configuration@
+All we're really doing is console logging the compiler, but it's still a plugin. The thing to take away from this is that this is a workbench and a place for your to experiment with different types of features without really having a lot of friction for your other configurations. So we can add a build script: `"build:prod:firstplugin: "npm run build:prod -- --env.addons=firstplugin`. And when you run the command you will see the compiler being console logged! We're essentiallyable to conditionally for any reason add these different types of plugins or composable features and this is not only good for deploy targets, but it's also good for testing and composing, trying things out and really getting your feet wet with how flexible you can make your configuration.
+
+### Escape Hatches
+So what if something goes wrong or there's a bug in our scripts, custom plugin or even a bug in webpack. Is there any way we can have an escape hatch so we can debug our way through in it. What's really cool is that Node has a native [feature](https://nodejs.org/en/docs/inspector/) that let's you use the inspector tool in chrome so that you can step through and set breakpoints for any of your node scripts. So the first thing we want to do is to run webpack not from the cli alias, but directly with node: `"build": "node ./node_modules/webpack/bin/webpack.js"`.
+
+
+What we then want to do is create a script we can call some additional node arguments to, it's going to be running the same webpack command with some flags:
+`"debug": "node --inspect-brk ./node_modules/webpack/bin/webpack.js",
+ "debug:prod": npm run debug -- --env.env=prod`
+
+ What this feature does is that it passes us a url that we can open in chrome.
+
+ `Inspect-brk` stops at the first line of the executable and that's just so that we if we wanted to can profile or debug or observe any local instances or variables. If we wanted to set breakpoints in our code or custom plugins we can also do so. It will also output anything we console log into the console. So this gives us a nice way to set ourselves up to experiment and if anything goes wrong, we can just use our debug script and add the same environment composables and debug our way into any situation we end up in! 
+
