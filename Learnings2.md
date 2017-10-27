@@ -101,3 +101,12 @@ createCard(
 ```
 
 It does increase the size of our bundle considerably, so you have to be careful and measure and understand the balances between importing an image itself or using the limit property and high or low you want to adjust it.
+
+
+
+Now that we've got our common config pretty much filled out, it's time to jump to our development config and start to set up some specific features for our dev environment.
+
+
+### Sourcemaps
+
+One of the first things we would like to have in our development environment would be source-maps. So in webpack you can set source maps by setting the `devtool` property. There are about 4 or 5 different values you can choose for the `devtool` property. See [here](webpack.js.org/configuration/devtool). See learnings1 for more information about sourcemaps!
