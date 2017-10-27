@@ -70,12 +70,16 @@
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__test_png__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__test_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__test_png__);
+
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */])(
-  "Im learning webpack: Web Essentials",
-  "This course is made by Sean Larkin, one of the members of the webpack core team."
+  'Im learning webpack: Web Essentials',
+  'This course is made by Sean Larkin, one of the members of the webpack core team.'
 )
+
 
 /***/ }),
 /* 1 */
@@ -102,6 +106,12 @@ const createAndAppendCard = (header, body) => {
 
 /* harmony default export */ __webpack_exports__["a"] = (createAndAppendCard);
 
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "c28a155517bded0fd09435c8f0fb20f9.png";
 
 /***/ })
 /******/ ]);
