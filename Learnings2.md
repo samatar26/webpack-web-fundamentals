@@ -110,3 +110,15 @@ Now that we've got our common config pretty much filled out, it's time to jump t
 ### Sourcemaps
 
 One of the first things we would like to have in our development environment would be source-maps. So in webpack you can set source maps by setting the `devtool` property. There are about 4 or 5 different values you can choose for the `devtool` property. See [here](webpack.js.org/configuration/devtool). See learnings1 for more information about sourcemaps!
+
+
+### Webpack-dev-server
+
+This is something that's very specific to a SPA, but usually most people who use webpack are building SPAs and are using some sort of development server to serve static content. Webpack has a node-module called `webpack-dev-server` which uses express behind the scenes and directly integrates with webpack so that it automatically emits bundles in memory and fires websocket requests to this webserver to have these changes updated automatically in the browser for us.
+
+So what we're going to do is replace our dev script which contains webpack with `webpack-dev-server`: `    "dev": "npm run webpack-dev-server -- --env.env=dev",
+`. This is going to allow us to call webpack-dev-server instead of webpack itself. If we go to localhost:8080 you can see the 3 files that were emitted to build loading in the browser for us automatically. So our index.html, the bundle file which not only contains the base64 image but the scripts and the card we created. Webpack-dev-server is super awesome as it not only allows us to independently work on our client-side code seperate from our server code, but also has all sorts of incredible features like auto-refreshing when you change files. So the concept of the dependency graph also applies to the webpack-dev-server.
+
+Not only is it providing incremental builds for us, but it's emitting these changes via websockets and automatically causing the browser to refresh for us. In addition to that we can also specify a whole bunch of different options for webpack-dev-server.
+
+Because of sourcemaps we can see our original `card.js` file and original JavaScript that's being in run in the devtools in the browser!!!! It's a great place to inspect different variables and really understand the kind of information that's being applied and makes for a super rich developer environment.
