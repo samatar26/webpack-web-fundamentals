@@ -5,24 +5,17 @@
   "main": "index.js",
   "scripts": {
     "build:dev:bundlebuddy": "npm run build:dev -- --env.addons=bundlebuddy",
-    "build:dev:bundleanalyze":
-      "npm run build:dev -- --env.addons=bundleanalyze",
+    "build:dev:bundleanalyze": "npm run build:dev -- --env.addons=bundleanalyze",
     "build:dev": "npm run build -- --env.env=dev",
-
     "build:prod:bundlebuddy": "npm run build:prod -- --env.addons=bundlebuddy",
-    "build:prod:bundleanalyze":
-      "npm run build:prod -- --env.addons=bundleanalyze",
+    "build:prod:bundleanalyze": "npm run build:prod -- --env.addons=bundleanalyze",
     "build:prod": "npm run build -- --env.env=prod",
     "debug:prod": "npm run debug -- --env.env=prod",
-
     "build:prod:firstplugin": "npm run build:prod -- --env.addons=firstplugin",
-    "build:allAddons":
-      "npm run build:prod -- --env.addons=bundlebuddy --env.addons=bundleanalyze",
-
+    "build:allAddons": "npm run build:prod -- --env.addons=bundlebuddy --env.addons=bundleanalyze",
     "build:watch:dev": "npm run build:watch -- --env.env=dev",
     "build:watch:prod": "npm run build:watch -- --env.env=prod",
     "build:watch": "npm run build -- --watch",
-
     "debug": "node --inspect-brk ./node_modules/webpack/bin/webpack.js",
     "build": "node ./node_modules/webpack/bin/webpack.js",
     "webpack-defaults": "webpack-defaults"
@@ -40,6 +33,7 @@
   "homepage": "https://github.com/Samatar26/webpack-web-fundamentals#readme",
   "devDependencies": {
     "bundle-buddy-webpack-plugin": "^0.3.0",
+    "html-webpack-plugin": "^2.30.1",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",

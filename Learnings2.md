@@ -24,3 +24,10 @@ module.exports = config
 ```
 
 What this actually does for us is get a little feedback as the build is running. For longer builds it's really valuable as it helps the builds feel less long and you get an idea of what the slowest parts of your configuration is when those builds start to slow down.
+
+### html-webpack-plugin
+So the next essential plugin that almost every configuration should include is the `html-webpack-plugin`. It's a community driven plugin and we cann add it to our package.json like so: `npm i --save-dev html-webpack-plugin`. We can then add it to our common config.
+
+When we add it to our configuration, `html-webpack-plugin` will generate a boilerplate html file that will also live in our build folder! What's beneficial about this is that the html file that's generated will include the scripts that webpack actually builds! This is really important especially when we're leveraging long term vendor hashing. So if we were to hash our bundle names by using the chunkhash template helper you could believe that it'd be really painful to inject a script every time into an index.html file especially since this hash may change muliple times.
+
+This is only scratching the surface on how many different options and features we can add to this. 
