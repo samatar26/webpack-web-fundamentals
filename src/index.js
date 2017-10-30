@@ -1,4 +1,5 @@
 import createCard from './card'
+import './index.css'
 import './test.png'
 
 createCard(

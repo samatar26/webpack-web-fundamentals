@@ -122,3 +122,30 @@ So what we're going to do is replace our dev script which contains webpack with 
 Not only is it providing incremental builds for us, but it's emitting these changes via websockets and automatically causing the browser to refresh for us. In addition to that we can also specify a whole bunch of different options for webpack-dev-server.
 
 Because of sourcemaps we can see our original `card.js` file and original JavaScript that's being in run in the devtools in the browser!!!! It's a great place to inspect different variables and really understand the kind of information that's being applied and makes for a super rich developer environment.
+
+
+### Style-loader & CSS-loader
+These are two seperate loaders, but are almost always paired together. The reason for this is that although loaders are single operation functions, or single purpose transforms, they're built to work together. When we come across a file that's about to be added to our dependency graph and ends in `.css` let's run it through `css-loader` and then `style-loader`. We should now be able to import a css file into our JavaScript.
+
+
+```js
+const config = {
+  devtool: 'source-map',
+  module: {
+    rules: [
+      {
+        test: /\.css/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+}
+
+module.exports = config
+
+```
+When we're changing out styles you might be able to see that this happens without the browser refreshing, this is called `hot module replacement`.
+
+
+##### Hot Module Replacement
+It's the idea that if you can take different modules and swap or patch them out based upon their changes incrementally, you can do so in a live environment without the browser refreshing. Using it is as easy as using the `--hot` flag in the webpack-dev-server. Now using HMR for more than just styles may vary in terms of configuring it, but with style-loader it automatically uses the hot module api so you can have this feature out of the box.
