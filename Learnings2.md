@@ -106,7 +106,7 @@ It does increase the size of our bundle considerably, so you have to be careful 
 
 Now that we've got our common config pretty much filled out, it's time to jump to our development config and start to set up some specific features for our dev environment.
 
-
+# Dev Config
 ### Sourcemaps
 
 One of the first things we would like to have in our development environment would be source-maps. So in webpack you can set source maps by setting the `devtool` property. There are about 4 or 5 different values you can choose for the `devtool` property. See [here](webpack.js.org/configuration/devtool). See learnings1 for more information about sourcemaps!
@@ -149,3 +149,9 @@ When we're changing out styles you might be able to see that this happens withou
 
 ##### Hot Module Replacement
 It's the idea that if you can take different modules and swap or patch them out based upon their changes incrementally, you can do so in a live environment without the browser refreshing. Using it is as easy as using the `--hot` flag in the webpack-dev-server. Now using HMR for more than just styles may vary in terms of configuring it, but with style-loader it automatically uses the hot module api so you can have this feature out of the box.
+
+
+# Prod config
+
+### Source maps, again!
+It may seem a little redundant but we're going to go ahead and use the `devtool` property again. You'll find out pretty quickly that when you're using webpack and the source-maps feature through devtool that `source-map` takes a little bit longer than most of the source map options you can choose from and this is why we'll  move `source-map` into our `prod` config and actually use something like `eval-source-map` in our dev config.
