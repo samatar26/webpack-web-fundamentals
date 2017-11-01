@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Samatar26/webpack-web-fundamentals#readme",
   "devDependencies": {
     "bundle-buddy-webpack-plugin": "^0.3.0",
+    "compression-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",

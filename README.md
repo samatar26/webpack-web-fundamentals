@@ -435,3 +435,45 @@ So in order to use this we'll start off by adding the plugin to our project and 
  ```
 
  After running `npm run build` we can see that our bundle size has become considerably smaller!
+
+
+ ### Compression-webpack-plugin
+
+ This feature is going to help reduce the amount of bytes that are transferred across the wire for the network. This however doesn't really perform an optimisation for the browser itself in terms of how long it takes to parse the code. (gzip has almost halved the JS bundle!)
+
+ ```js
+ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
+ const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin')
+ const CompressionWebpackPlugin = require('compression-webpack-plugin')
+
+ module.exports = {
+   devtool: 'source-map',
+   module: {
+     rules: [
+       {
+         test: /\.css/,
+         use: ExtractTextWebpackPlugin.extract({
+           use: 'css-loader',
+           fallback: 'style-loader',
+         }),
+       },
+     ],
+   },
+   plugins: [
+     new ExtractTextWebpackPlugin('style.css'),
+     new UglifyJsWebpackPlugin({
+       sourceMap: true,
+     }),
+     new CompressionWebpackPlugin({
+       asset: '[path].gz[query]',
+       algorithm: 'gzip',
+       test: /\.(js|html|css)$/,
+       threshold: 0,
+       minRatio: 0.8,
+     }),
+   ],
+ }
+
+ ```
+
+See https://github.com/webpack-contrib/compression-webpack-plugin#usage for some of the values you can set.
