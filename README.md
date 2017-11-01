@@ -400,3 +400,38 @@ What we then want to do is create a script we can call some additional node argu
  ```
 
  We're then going to use the loader api for ExtractTextWebpackPlugin by replacing use with a method called `extract`. We're still going to use the 2 loaders we had in the array. The `fallback` is there for in the scenario where chunks of code, like let's say lazy loaded JS cannot be translated into lazy css. So this fallback will say that when you have a lazy loaded bundle through webpack use the style-loaders base functionality instead. When we run `npm run build` we can see that we have a bundle of css created and even the sourcemap for it, because of the `devtool` property.
+
+
+ ### UglifyJs-Webpack-Plugin
+
+This is a great plugin for minifying your code and supports things like es6 minification and much more!
+So in order to use this we'll start off by adding the plugin to our project and then we'll add a new instance of the plugin to our config. There's one thing we should do and that is that sourcemaps don't get removed from our bundle, by passing the new instance an option of `sourceMap: true`. This just tells uglify to not strip the footer at the bottom of the file that maps a sourcemap to its respective file.
+
+
+ ```js
+ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
+ const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin')
+
+ module.exports = {
+   devtool: 'source-map',
+   module: {
+     rules: [
+       {
+         test: /\.css/,
+         use: ExtractTextWebpackPlugin.extract({
+           use: 'css-loader',
+           fallback: 'style-loader',
+         }),
+       },
+     ],
+   },
+   plugins: [
+     new ExtractTextWebpackPlugin('style.css'),
+     new UglifyJsWebpackPlugin({
+       sourceMap: true,
+     }),
+   ],
+ }
+ ```
+
+ After running `npm run build` we can see that our bundle size has become considerably smaller!

@@ -1,4 +1,5 @@
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
+const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   devtool: 'source-map',
@@ -13,5 +14,10 @@ module.exports = {
       },
     ],
   },
-  plugins: [new ExtractTextWebpackPlugin('style.css')],
+  plugins: [
+    new ExtractTextWebpackPlugin('style.css'),
+    new UglifyJsWebpackPlugin({
+      sourceMap: true,
+    }),
+  ],
 }
