@@ -477,3 +477,14 @@ So in order to use this we'll start off by adding the plugin to our project and 
  ```
 
 See https://github.com/webpack-contrib/compression-webpack-plugin#usage for some of the values you can set.
+
+## DefinePlugin
+
+The DefinePlugin allows you to create global constants which can be configured at compile time. This can be useful for allowing different behaviour between development builds and release builds. If you perform logging in your development build but not in the release build you might use a global constant to determine whether logging takes place. That's where DefinePlugin shines, set it and forget it rules for development and release builds.
+
+```js
+new webpack.DefinePlugin({
+  //ie for React production build:
+  'process.env.NODE_ENV': JSON.stringify('production')
+})
+```
